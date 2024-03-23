@@ -1,0 +1,27 @@
+﻿@* @model int - to receive int from controller
+@model string - to receive string from controller
+@model Student - to receive Student Model class from controller
+*@
+
+@model List<Student>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h2>Data from controller</h2>
+    @* <ul>
+        <li>Id-@Model.Id</li>
+        <li>Name-@Model.Name</li>
+        <li>City-@Model.City</li>
+    </ul> *@
+    @foreach (var student in Model)
+    {
+        <h3>Student Id - @student.Id </h3>
+        <h3>Student Name - @student.Name </h3>
+        <h3>City - @student.City </h3>
+        <hr />
+    }
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
