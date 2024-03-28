@@ -13,7 +13,7 @@ namespace Training.FirstApp.Models
         public string Name { get; set; } = "Test";
         public string City { get; set; } = "Test";
 
-        public string Contact { get; set; } = "123";
+       
 
 
 
