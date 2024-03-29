@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Training.FirstApp.Models.Student>
+﻿@model IEnumerable<Student>
 
 @{
     ViewData["Title"] = "Index";
@@ -21,7 +21,7 @@
             <th>
                 City
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
 }
