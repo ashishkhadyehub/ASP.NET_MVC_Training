@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace Training.Repositories.Implementations
 
         public IEnumerable<State> GetAll()
         {
-            var states = _context.States.ToList();
+            var states = _context.States.Include(x=>x.Country).ToList();
             return states;
         }
 
