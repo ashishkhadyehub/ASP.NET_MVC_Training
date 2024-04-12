@@ -37,6 +37,36 @@ namespace Training.UI.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var countries = _countryRepo.GetAll();
+            ViewBag.CountryList = new SelectList(countries,"Id","Name");
+            var state = _stateRepo.GetById(id);
+            return View(state);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(State state)
+        {
+            _stateRepo.Edit(state);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var state = _stateRepo.GetById(id);
+            return View(state);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(State state)
+        {
+            _stateRepo.RemoveData(state);
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

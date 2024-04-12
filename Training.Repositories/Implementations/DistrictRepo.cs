@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace Training.Repositories.Implementations
 
         public IEnumerable<District> GetAll()
         {
-           var districts = _context.Districts.ToList();
+           var districts = _context.Districts.Include(x=>x.State).ThenInclude(y=>y.Country).ToList();
            return districts;
         }
 

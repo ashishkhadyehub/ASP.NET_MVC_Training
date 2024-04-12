@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Training.Models.State>
+﻿@model IEnumerable<Training.Models.District>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,27 +19,32 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
+               State
+            </th>
+            <th>
                 Country
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var state in Model) {
+@foreach (var district in Model) {
         <tr>
             <td>
-                    @Html.DisplayFor(modelItem => state.Id)
+                    @Html.DisplayFor(modelItem => district.Id)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => state.Name)
+                    @Html.DisplayFor(modelItem => district.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => state.Country.Name)
+                    @Html.DisplayFor(modelItem => district.State.Name)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => district.State.Country.Name)
+                </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=state.Id }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = district.Id }) |
                 
-                @Html.ActionLink("Delete", "Delete", new { id=state.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = district.Id })
             </td>
         </tr>
 }
