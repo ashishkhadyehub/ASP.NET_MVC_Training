@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Training.Models;
 using Training.Repositories.Interfaces;
+using Training.UI.ViewModels.DistrictViewModel;
 
 namespace Training.UI.Controllers
 {
@@ -18,8 +19,13 @@ namespace Training.UI.Controllers
 
         public IActionResult Index()
         {
+            List<DistrictViewModel> vm = new List<DistrictViewModel>();
             var districts = _districtRepo.GetAll();
-            return View(districts);
+            foreach (var district in districts)
+            {
+                vm.Add(new DistrictViewModel { Id=district.Id,DistrictName=district.Name,StateName=district.State.Name,CountryName=district.State.Country.Name});
+            }
+            return View(vm);
         }
         [HttpGet]
         public IActionResult Create()
@@ -30,8 +36,13 @@ namespace Training.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(District district)
+        public IActionResult Create(CreateDistrictViewModel vm)
         {
+            var district = new District
+            {
+                Name=vm.DistrictName,
+                StateId=vm.StateId
+            };
             _districtRepo.Save(district);
             return RedirectToAction("Index");
         }
@@ -42,12 +53,24 @@ namespace Training.UI.Controllers
             var states = _stateRepo.GetAll();
             ViewBag.StateList = new SelectList(states,"Id","Name");
             var district = _districtRepo.GetById(id);
-            return View(district);
+            var vm = new EditDistrictViewModel
+            {
+                Id=district.Id,
+                DistrictName=district.Name,
+                StateId =district.StateId
+            };
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Edit(District district)
+        public IActionResult Edit(EditDistrictViewModel vm)
         {
+            var district = new District
+            {
+                Id = vm.Id,
+                Name=vm.DistrictName,
+                StateId=vm.StateId
+            };
             _districtRepo.Edit(district);
             return RedirectToAction("Index");
         }
@@ -56,12 +79,20 @@ namespace Training.UI.Controllers
         public IActionResult Delete(int id)
         {
             var district = _districtRepo.GetById(id);
-            return View(district);
+            var vm = new DistrictViewModel
+            {
+                Id = district.Id,
+                DistrictName = district.Name
+
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Delete(District district)
+        public IActionResult Delete(DistrictViewModel vm)
         {
+            var district =  new District { Id = vm.Id,Name=vm.DistrictName };
             _districtRepo.RemoveData(district);
             return RedirectToAction("Index");
         }

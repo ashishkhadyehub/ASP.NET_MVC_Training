@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Training.Models;
 using Training.Repositories.Interfaces;
+using Training.UI.ViewModels.StateViewModels;
 
 namespace Training.UI.Controllers
 {
@@ -18,37 +19,60 @@ namespace Training.UI.Controllers
 
         public IActionResult Index()
         {
+            var vm = new List<StateViewModel>();
             var states = _stateRepo.GetAll();
-            return View(states);
+            foreach (var state in states)
+            {
+                vm.Add(new StateViewModel {Id=state.Id,StateName=state.Name,CountryName=state.Country.Name });
+            }
+            return View(vm);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var countries = _countryRepo.GetAll();
+            var countries = await _countryRepo.GetAll();
             ViewBag.CountryList = new SelectList(countries, "Id", "Name");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(State state)
+        public IActionResult Create(CreateStateViewModel vm)
         {
+            var state = new State
+            {
+                Name=vm.StateName,
+                CountryId=vm.CountryId
+            };
             _stateRepo.Save(state);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult>  Edit(int id)
         {
-            var countries = _countryRepo.GetAll();
+            var countries = await _countryRepo.GetAll();
             ViewBag.CountryList = new SelectList(countries,"Id","Name");
             var state = _stateRepo.GetById(id);
-            return View(state);
+            var vm = new EditStateViewModel
+            {
+                Id=state.Id,
+                StateName=state.Name,
+                CountryId=state.CountryId,
+            };
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Edit(State state)
+        public IActionResult Edit(EditStateViewModel vm)
         {
+            var state = new State
+            {
+                Id=vm.Id,
+                Name=vm.StateName,
+                CountryId=vm.CountryId
+
+            };
             _stateRepo.Edit(state);
             return RedirectToAction("Index");
         }
@@ -57,12 +81,18 @@ namespace Training.UI.Controllers
         public IActionResult Delete(int id)
         {
             var state = _stateRepo.GetById(id);
-            return View(state);
+            var vm = new StateViewModel
+            {
+                Id = state.Id,
+                StateName = state.Name
+            };
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Delete(State state)
+        public IActionResult Delete(StateViewModel vm)
         {
+            var state = new State { Id = vm.Id,Name=vm.StateName };
             _stateRepo.RemoveData(state);
             return RedirectToAction("Index");
         }

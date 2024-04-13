@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Training.Models.State>
+﻿
+@model IEnumerable<StateViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.StateName)
             </th>
             <th>
                 Country
@@ -31,10 +32,10 @@
                     @Html.DisplayFor(modelItem => state.Id)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => state.Name)
+                    @Html.DisplayFor(modelItem => state.StateName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => state.Country.Name)
+                @Html.DisplayFor(modelItem => state.CountryName)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=state.Id }) |

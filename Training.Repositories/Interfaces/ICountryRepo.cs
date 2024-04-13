@@ -9,16 +9,16 @@ namespace Training.Repositories.Interfaces
 {
     public interface ICountryRepo
     {
-        IEnumerable<Country> GetAll();
+        Task<IEnumerable<Country>> GetAll();
      
 
-        Country GetById(int id);
+        Task<Country> GetById(int id);
 
-        void Save(Country country);
+        Task Save(Country country);
 
-        void Edit(Country country);
+        Task Edit(Country country);
 
-        void RemoveData(Country country);
+        Task RemoveData(Country country);
 
 
        

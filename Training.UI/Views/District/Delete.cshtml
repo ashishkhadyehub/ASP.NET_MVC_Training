@@ -1,4 +1,4 @@
-﻿@model Training.Models.District
+﻿@model DistrictViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -18,17 +18,12 @@
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.DistrictName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.DistrictName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StateId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StateId)
-        </dd>
+        
     </dl>
     
     <form asp-action="Delete">

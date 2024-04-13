@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Training.Models.District>
+﻿
+@model IEnumerable<DistrictViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.DistrictName)
             </th>
             <th>
                State
@@ -33,13 +34,13 @@
                     @Html.DisplayFor(modelItem => district.Id)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => district.Name)
+                    @Html.DisplayFor(modelItem => district.DistrictName)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => district.State.Name)
+                    @Html.DisplayFor(modelItem => district.StateName)
             </td>
                 <td>
-                    @Html.DisplayFor(modelItem => district.State.Country.Name)
+                    @Html.DisplayFor(modelItem => district.CountryName)
                 </td>
             <td>
                     @Html.ActionLink("Edit", "Edit", new { id = district.Id }) |
