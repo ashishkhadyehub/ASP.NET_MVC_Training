@@ -9,14 +9,14 @@ namespace Training.Repositories.Interfaces
 {
     public interface IDistrictRepo
     {
-        IEnumerable<District> GetAll();
+        Task<IEnumerable<District>> GetAll();
 
-        District GetById(int id);
+        Task<District> GetById(int id);
 
-        void Save(District district);
+        Task Save(District district);
 
-        void Edit(District district);
+        Task Edit(District district);
 
-        void RemoveData(District district);
+        Task RemoveData(District district);
     }
 }

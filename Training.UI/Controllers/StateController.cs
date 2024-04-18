@@ -17,10 +17,10 @@ namespace Training.UI.Controllers
             _stateRepo = stateRepo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var vm = new List<StateViewModel>();
-            var states = _stateRepo.GetAll();
+            var states = await _stateRepo.GetAll();
             foreach (var state in states)
             {
                 vm.Add(new StateViewModel {Id=state.Id,StateName=state.Name,CountryName=state.Country.Name });
@@ -37,14 +37,14 @@ namespace Training.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateStateViewModel vm)
+        public async Task<IActionResult> Create(CreateStateViewModel vm)
         {
             var state = new State
             {
                 Name=vm.StateName,
                 CountryId=vm.CountryId
             };
-            _stateRepo.Save(state);
+            await _stateRepo.Save(state);
             return RedirectToAction("Index");
         }
 
@@ -53,7 +53,7 @@ namespace Training.UI.Controllers
         {
             var countries = await _countryRepo.GetAll();
             ViewBag.CountryList = new SelectList(countries,"Id","Name");
-            var state = _stateRepo.GetById(id);
+            var state = await _stateRepo.GetById(id);
             var vm = new EditStateViewModel
             {
                 Id=state.Id,
@@ -64,7 +64,7 @@ namespace Training.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditStateViewModel vm)
+        public async Task<IActionResult>  Edit(EditStateViewModel vm)
         {
             var state = new State
             {
@@ -73,14 +73,14 @@ namespace Training.UI.Controllers
                 CountryId=vm.CountryId
 
             };
-            _stateRepo.Edit(state);
+            await _stateRepo.Edit(state);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult>  Delete(int id)
         {
-            var state = _stateRepo.GetById(id);
+            var state = await _stateRepo.GetById(id);
             var vm = new StateViewModel
             {
                 Id = state.Id,
@@ -90,10 +90,10 @@ namespace Training.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(StateViewModel vm)
+        public async Task<IActionResult>  Delete(StateViewModel vm)
         {
             var state = new State { Id = vm.Id,Name=vm.StateName };
-            _stateRepo.RemoveData(state);
+            await _stateRepo.RemoveData(state);
             return RedirectToAction("Index");
         }
 

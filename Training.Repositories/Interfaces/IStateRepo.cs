@@ -9,14 +9,14 @@ namespace Training.Repositories.Interfaces
 {
     public interface IStateRepo
     {
-        IEnumerable<State> GetAll();
+        Task<IEnumerable<State>> GetAll();
 
-        State GetById(int id);
+        Task<State> GetById(int id);
 
-        void Save(State state);
+        Task Save(State state);
 
-        void Edit(State state);
+        Task Edit(State state);
 
-        void RemoveData(State state);
+        Task RemoveData(State state);
     }
 }

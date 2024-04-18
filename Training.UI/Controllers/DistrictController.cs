@@ -17,10 +17,10 @@ namespace Training.UI.Controllers
             _stateRepo = stateRepo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             List<DistrictViewModel> vm = new List<DistrictViewModel>();
-            var districts = _districtRepo.GetAll();
+            var districts = await _districtRepo.GetAll();
             foreach (var district in districts)
             {
                 vm.Add(new DistrictViewModel { Id=district.Id,DistrictName=district.Name,StateName=district.State.Name,CountryName=district.State.Country.Name});
@@ -28,31 +28,31 @@ namespace Training.UI.Controllers
             return View(vm);
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult>  Create()
         {
-            var states = _stateRepo.GetAll();
+            var states = await _stateRepo.GetAll();
             ViewBag.StateList = new SelectList(states,"Id","Name");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(CreateDistrictViewModel vm)
+        public async Task<IActionResult> Create(CreateDistrictViewModel vm)
         {
             var district = new District
             {
                 Name=vm.DistrictName,
                 StateId=vm.StateId
             };
-            _districtRepo.Save(district);
+            await _districtRepo.Save(district);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult>  Edit(int id)
         {
-            var states = _stateRepo.GetAll();
+            var states = await _stateRepo.GetAll();
             ViewBag.StateList = new SelectList(states,"Id","Name");
-            var district = _districtRepo.GetById(id);
+            var district = await _districtRepo.GetById(id);
             var vm = new EditDistrictViewModel
             {
                 Id=district.Id,
@@ -63,7 +63,7 @@ namespace Training.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditDistrictViewModel vm)
+        public async Task<IActionResult> Edit(EditDistrictViewModel vm)
         {
             var district = new District
             {
@@ -71,14 +71,14 @@ namespace Training.UI.Controllers
                 Name=vm.DistrictName,
                 StateId=vm.StateId
             };
-            _districtRepo.Edit(district);
+            await _districtRepo.Edit(district);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var district = _districtRepo.GetById(id);
+            var district = await _districtRepo.GetById(id);
             var vm = new DistrictViewModel
             {
                 Id = district.Id,
@@ -90,10 +90,10 @@ namespace Training.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(DistrictViewModel vm)
+        public async Task<IActionResult> Delete(DistrictViewModel vm)
         {
             var district =  new District { Id = vm.Id,Name=vm.DistrictName };
-            _districtRepo.RemoveData(district);
+            await _districtRepo.RemoveData(district);
             return RedirectToAction("Index");
         }
 

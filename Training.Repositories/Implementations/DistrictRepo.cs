@@ -18,34 +18,34 @@ namespace Training.Repositories.Implementations
             _context = context;
         }
 
-        public void Edit(District district)
+        public async Task Edit(District district)
         {
             _context.Districts.Update(district);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<District> GetAll()
+        public async Task<IEnumerable<District>> GetAll()
         {
-           var districts = _context.Districts.Include(x=>x.State).ThenInclude(y=>y.Country).ToList();
+           var districts = await _context.Districts.Include(x=>x.State).ThenInclude(y=>y.Country).ToListAsync();
            return districts;
         }
 
-        public District GetById(int id)
+        public async Task<District>  GetById(int id)
         {
-            var district = _context.Districts.Find(id);
+            var district = await _context.Districts.FindAsync(id);
             return district;
         }
 
-        public void RemoveData(District district)
+        public async Task RemoveData(District district)
         {
             _context.Districts.Remove(district);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Save(District district)
+        public async Task Save(District district)
         {
-            _context.Districts.Add(district);
-            _context.SaveChanges();
+            await _context.Districts.AddAsync(district);
+            await _context.SaveChangesAsync();
         }
     }
 }
