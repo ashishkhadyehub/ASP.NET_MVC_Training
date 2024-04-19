@@ -16,15 +16,19 @@ namespace Training.UI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<CountryViewModel> vm = new List<CountryViewModel>();
-            var countries = await _countryRepo.GetAll();
-            foreach (var country in countries)
+            if(HttpContext.Session.GetInt32("userId")!=null)
             {
-                vm.Add(new CountryViewModel { Id=country.Id, Name=country.Name});
+                List<CountryViewModel> vm = new List<CountryViewModel>();
+                var countries = await _countryRepo.GetAll();
+                foreach (var country in countries)
+                {
+                    vm.Add(new CountryViewModel { Id = country.Id, Name = country.Name });
+                }
+
+                return View(vm);
             }
-
-            return View(vm);
-
+            
+            return RedirectToAction("Login","Auth");
             //var countries = _countryRepo.GetAll();
             //return View(countries);
         }

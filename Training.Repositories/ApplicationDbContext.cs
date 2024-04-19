@@ -21,6 +21,8 @@ namespace Training.Repositories
 
         public DbSet<District> Districts { get; set; }
 
+        public DbSet<UserInfo> UserInfos { get; set; }
+
       
 
     }

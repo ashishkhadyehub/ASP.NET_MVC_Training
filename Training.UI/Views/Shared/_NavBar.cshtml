@@ -1,4 +1,5 @@
-﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+﻿@inject IHttpContextAccessor ContextAccessor
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container-fluid">
         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Training.UI</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -22,6 +23,13 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="District" asp-action="Index">Manage Districts</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                @if(ContextAccessor.HttpContext.Session.GetInt32("userId") != null)
+                {
+                    @("Hello, " + ContextAccessor.HttpContext.Session.GetString("userName"))
+                    <a asp-controller="Auth" asp-action="Logout">Logout</a>
+                }
             </ul>
         </div>
     </div>
