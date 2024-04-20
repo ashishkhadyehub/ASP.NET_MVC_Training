@@ -15,6 +15,8 @@ builder.Services.AddScoped<ICountryRepo,CountryRepo>();
 builder.Services.AddScoped<IStateRepo,StateRepo>();
 builder.Services.AddScoped<IDistrictRepo,DistrictRepo>();
 builder.Services.AddScoped<IUserRepo,UserRepo>();
+builder.Services.AddScoped(typeof(IGenericRepo<>),typeof(GenericRepo<>));
+
 
 builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
 

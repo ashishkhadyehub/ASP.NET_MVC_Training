@@ -23,6 +23,8 @@ namespace Training.Repositories
 
         public DbSet<UserInfo> UserInfos { get; set; }
 
+        public DbSet<Student> StudentInfo { get; set; }
+
       
 
     }

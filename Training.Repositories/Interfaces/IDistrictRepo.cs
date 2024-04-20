@@ -9,6 +9,7 @@ namespace Training.Repositories.Interfaces
 {
     public interface IDistrictRepo
     {
+        
         Task<IEnumerable<District>> GetAll();
 
         Task<District> GetById(int id);

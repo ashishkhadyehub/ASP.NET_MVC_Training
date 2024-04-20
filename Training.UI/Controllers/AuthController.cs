@@ -27,7 +27,7 @@ namespace Training.UI.Controllers
             await _userRepo.RegisterUser(user);
             return RedirectToAction("Login");
         }
-
+        
         [HttpGet]
         public IActionResult Login()
         {

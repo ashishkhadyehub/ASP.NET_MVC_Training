@@ -23,6 +23,9 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="District" asp-action="Index">Manage Districts</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Manage Students</a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @if(ContextAccessor.HttpContext.Session.GetInt32("userId") != null)
