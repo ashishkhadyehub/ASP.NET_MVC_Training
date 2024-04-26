@@ -1,0 +1,53 @@
+﻿@model IEnumerable<EMS.UI.ViewModels.BranchViewModel>
+
+@{
+    ViewData["Title"] = "BranchList";
+}
+
+<h1>Branch List</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="CreateBranch">Add New Branch</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BranchHead)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchHead)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditBranch", new { id=item.Id }) |
+               
+                    @Html.ActionLink("Delete", "DeleteBranch", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
