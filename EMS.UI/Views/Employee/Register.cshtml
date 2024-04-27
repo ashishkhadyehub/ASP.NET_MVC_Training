@@ -1,0 +1,76 @@
+﻿@model EMS.UI.ViewModels.EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/Employee_Layout.cshtml";
+}
+
+<h1>Employee Registration</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group my-2">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Contact" class="control-label"></label>
+                <input asp-for="Contact" class="form-control" />
+                <span asp-validation-for="Contact" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="EmpBranch" class="control-label"></label>
+                <select asp-items="@ViewBag.BranchList" asp-for="EmpBranch" class="form-control">
+                    <option selected disabled>Select Branch</option>
+                </select>
+                <span asp-validation-for="EmpBranch" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="EmpDepartment" class="control-label"></label>
+                <select asp-for="EmpDepartment" asp-items="@ViewBag.DeptList" class="form-control">
+                    <option selected disabled>Select Department</option>
+                </select>
+                <span asp-validation-for="EmpDepartment" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-2">
+                <label asp-for="PhotoURL" class="control-label"></label>
+                <input asp-for="PhotoURL" class="form-control" />
+                <span asp-validation-for="PhotoURL" class="text-danger"></span>
+            </div>
+            <div class="form-group  my-3">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Login" class="btn btn-success">Login</a>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial"></partial>
+}
+

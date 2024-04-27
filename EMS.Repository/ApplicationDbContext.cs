@@ -18,5 +18,9 @@ namespace EMS.Repository
         public DbSet<Branch> Branches { get; set; }
 
         public DbSet<Department> Departments { get; set; }  
+        public DbSet<Employee> Employees { get; set; }  
+        public DbSet<LeaveApplication> LeaveApplications { get; set; }  
+
+
     }
 }

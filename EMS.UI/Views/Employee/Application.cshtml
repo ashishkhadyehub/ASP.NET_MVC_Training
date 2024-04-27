@@ -1,0 +1,58 @@
+﻿@model EMS.UI.ViewModels.LeaveApplicationViewModel
+
+@{
+    ViewData["Title"] = "Application";
+    Layout = "~/Views/Shared/Employee_Layout.cshtml";
+}
+
+<h1>Application</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Application">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group my-2">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control">
+                    <option disabled selected>Select Type</option>
+                    <option>Casual Leave</option>
+                    <option>Sick Leave</option>
+
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="FromDate" class="control-label"></label>
+                <input type="Date" asp-for="FromDate" class="form-control" />
+                <span asp-validation-for="FromDate" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="ToDate" class="control-label"></label>
+                <input type="Date" asp-for="ToDate" class="form-control" />
+                <span asp-validation-for="ToDate" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group my-3">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-success" asp-action="AppList">Show All Applications</a>
+</div>
+@section scripts {
+    <partial name="_ValidationScriptsPartial"></partial>
+}
+
