@@ -1,0 +1,91 @@
+﻿@model IEnumerable<EMS.UI.ViewModels.EmployeeViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="container">
+        <h2>Employee List</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                <table id="tableEmployees" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Id)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Contact)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Address)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EmpBranch)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EmpDepartment)
+                                </th>
+                              
+                                <th>
+                                    @Html.DisplayNameFor(model => model.RegisterDate)
+                                </th>
+                                <th>
+                                    Profile Photo
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Contact)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmpBranch)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EmpDepartment)
+                                    </td>
+                                   
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RegisterDate)
+                                    </td>
+                                    <td>
+                                        <img src="@item.DbPath" style="height:200px" class="rounded" />
+
+                                    </td>
+                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

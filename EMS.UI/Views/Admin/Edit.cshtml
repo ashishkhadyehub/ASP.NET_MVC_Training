@@ -1,0 +1,100 @@
+﻿@model EMS.UI.ViewModels.LeaveApplicationListViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Update Application</h1>
+
+<div>
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BranchName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BranchName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeptName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeptName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FromDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FromDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ToDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ToDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationDate)
+        </dd>
+    </dl>
+
+    <div class="row">
+        <div class="col-md-2">
+            <form asp-action="ApproveApp">
+                <input type="submit" value="Approve" class="btn btn-success" />
+                <input type="hidden" asp-for="@Model.Id" />
+            </form>
+        </div>
+        <div class="col-md-2">
+            <form asp-action="RejectApp">
+                <input type="submit" value="Reject" class="btn btn-danger" />
+                <input type="hidden" asp-for="@Model.Id" />
+            </form>
+        </div>
+
+    </div>
+
+
+
+</div>

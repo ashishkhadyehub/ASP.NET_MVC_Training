@@ -13,6 +13,7 @@ builder.Services.AddScoped(typeof(IGenericRepo<>),typeof(GenericRepo<>));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUtilityRepo, UtilityRepo>();
 builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+builder.Services.AddScoped<IAdminRepo, AdminRepo>();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(10);

@@ -9,11 +9,82 @@ namespace EMS.UI.Controllers
     {
         private readonly IGenericRepo<Branch> _branchRepo;
         private readonly IGenericRepo<Department> _departmentRepo;
-
-        public AdminController(IGenericRepo<Branch> branchRepo, IGenericRepo<Department> departmentRepo)
+        private readonly IAdminRepo _adminRepo;
+        public AdminController(IGenericRepo<Branch> branchRepo, IGenericRepo<Department> departmentRepo, IAdminRepo adminRepo)
         {
             _branchRepo = branchRepo;
             _departmentRepo = departmentRepo;
+            _adminRepo = adminRepo;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var vm = new List<EmployeeViewModel>();
+            var employees = await _adminRepo.GetAll();
+            foreach (var employee in employees)
+            {
+                vm.Add(new EmployeeViewModel { Id = employee.Id, Name = employee.Name, Contact = employee.Contact, Email = employee.Email, Address = employee.Address, EmpBranch = employee.Branch, EmpDepartment = employee.Department, RegisterDate = employee.RegisterDate, DbPath = employee.PhotoURL });
+            }
+            return View(vm);
+        }
+
+        public async Task<IActionResult> ApplicationList()
+        {
+            var vm = new List<LeaveApplicationListViewModel>();
+            var applications = await _adminRepo.GetAllApplications();
+            foreach (var app in applications)
+            {
+                vm.Add(new LeaveApplicationListViewModel { Id = app.Id, EmployeeName = app.Employee.Name, BranchName = app.Employee.Branch, DeptName = app.Employee.Department, Category = app.Category, FromDate = app.FromDate, ToDate = app.ToDate, Description = app.Description, ApplicationDate = app.ApplicationDate, EmployeeId = app.EmployeeId, Status = app.Status });
+            }
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var app = await _adminRepo.GetById(id);
+            var vm = new LeaveApplicationListViewModel
+            {
+                Id = app.Id,
+                EmployeeName = app.Employee.Name,
+                BranchName = app.Employee.Branch,
+                DeptName = app.Employee.Department,
+                Category = app.Category,
+                FromDate = app.FromDate,
+                ToDate = app.ToDate,
+                Description = app.Description,
+                EmployeeId = app.Employee.Id,
+                ApplicationDate = app.ApplicationDate,
+                Status = app.Status
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApproveApp(LeaveApplicationListViewModel vm)
+        {
+            var app = new LeaveApplication
+            {
+                Id = vm.Id,
+
+
+            };
+            await _adminRepo.UpdateApplication(app.Id, "Approved");
+            return RedirectToAction("ApplicationList");
+
+        }
+
+        public async Task<IActionResult> RejectApp(LeaveApplicationListViewModel vm)
+        {
+            var app = new LeaveApplication
+            {
+                Id = vm.Id,
+
+
+            };
+            await _adminRepo.UpdateApplication(app.Id, "Rajected");
+            return RedirectToAction("ApplicationList");
         }
 
         [HttpGet]
@@ -75,6 +146,7 @@ namespace EMS.UI.Controllers
 
             };
             await _branchRepo.Save(branch);
+            TempData["Message"] = "True";
             return RedirectToAction("BranchList");
         }
 
@@ -185,10 +257,7 @@ namespace EMS.UI.Controllers
             return RedirectToAction("DeptList");
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+       
 
 
     }
