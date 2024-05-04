@@ -13,6 +13,7 @@ builder.Services.AddScoped<IVenueRepo,VenueRepo>();
 builder.Services.AddScoped<IPlannerRepo,PlannerRepo>();
 builder.Services.AddScoped<IEventRepo, EventRepo>();
 builder.Services.AddScoped<IUtilityRepo, UtilityRepo>();
+builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
 
 var app = builder.Build();
 

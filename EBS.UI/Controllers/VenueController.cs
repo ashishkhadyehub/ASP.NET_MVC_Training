@@ -9,6 +9,7 @@ namespace EBS.UI.Controllers
     {
         private readonly IVenueRepo _venueRepo;
 
+
         public VenueController(IVenueRepo venueRepo)
         {
             _venueRepo = venueRepo;

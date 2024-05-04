@@ -26,7 +26,7 @@ namespace EBS.Repository.Implementations
 
         public async Task<IEnumerable<Event>> GetAll()
         {
-            return await _context.Events.ToListAsync();
+            return await _context.Events.Include(x=>x.Venue).Include(y=>y.Planner).ToListAsync();
         }
 
         public async Task<Event> GetById(int id)
