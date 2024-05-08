@@ -1,0 +1,64 @@
+﻿@model EBS.UI.ViewModels.CreateEventViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create New Event</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group my-2">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="DateTime" class="control-label"></label>
+                <input asp-for="DateTime" class="form-control" />
+                <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="VenueId" class="control-label"></label>
+                <select style="color:black" asp-for="VenueId" asp-items="@ViewBag.VenueList" class="form-control">
+                    <option disabled selected>Select Venue</option>
+                </select>
+                <span asp-validation-for="VenueId" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="PlannerId" class="control-label"></label>
+                <select style="color:black" asp-for="PlannerId" asp-items="@ViewBag.PlannerList" class="form-control">
+                    <option disabled selected>Select Planner</option>
+                </select>
+                <span asp-validation-for="PlannerId" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group my-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

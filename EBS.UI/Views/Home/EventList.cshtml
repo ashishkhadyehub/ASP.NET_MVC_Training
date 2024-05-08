@@ -1,0 +1,29 @@
+﻿@using EBS.UI.ViewModels
+@model List<EventListViewModel>
+<div class="row my-5">
+    @foreach (var eventvar in Model)
+    {
+        <div class="col-4 mb-2">
+            <div class="card mb-3">
+                <h3 class="card-header">@eventvar.Name</h3>
+
+                <img src="@eventvar.Image" style="height:200px" />
+                <div class="card-body">
+                    <p class="card-text">@eventvar.Description</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Venue : @eventvar.Venue</li>
+                    <li class="list-group-item">Planner : @eventvar.Planner</li>
+                    <li class="list-group-item">Date Time : @eventvar.DateTime</li>
+
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-primary">View Details</a>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+</div>

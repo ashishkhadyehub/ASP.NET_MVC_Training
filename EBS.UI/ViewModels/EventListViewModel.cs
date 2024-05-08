@@ -6,22 +6,18 @@ using System.Threading.Tasks;
 
 namespace EBS.UI.ViewModels
 {
-    public class EditEventViewModel
+    public class EventListViewModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
 
+        public string Name { get; set; }
         public string Description { get; set; }
 
-        public string ImageUrl { get; set; }
-
-        public IFormFile? ChooseFile { get; set; }
-
+        public string Image { get; set; }
         public DateTime DateTime { get; set; }
 
-        public int VenueId { get; set; }
+        public string Venue { get; set; }
 
-
-        public int PlannerId { get; set; }
+        public string Planner { get; set; }
     }
 }

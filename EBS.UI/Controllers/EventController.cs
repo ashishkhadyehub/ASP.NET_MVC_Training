@@ -101,6 +101,10 @@ namespace EBS.UI.Controllers
             {
                 eventvar.ImageUrl = await _utilityRepo.EditImage("EventImages", vm.ChooseFile, vm.ImageUrl);
             }
+            else
+            {
+                eventvar.ImageUrl=vm.ImageUrl;
+            }
             await _eventRepo.Edit(eventvar);
             return RedirectToAction("Index");
         }

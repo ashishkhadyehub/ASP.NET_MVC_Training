@@ -74,6 +74,10 @@ namespace EBS.UI.Controllers
             {
                 planner.ImageUrl = await _utilityRepo.EditImage("PlannerLogos", vm.ChooseImage, vm.ImageUrl);
             }
+            else
+            {
+                planner.ImageUrl= vm.ImageUrl;
+            }
             await _plannerRepo.Edit(planner);
             return RedirectToAction("Index");
         }
