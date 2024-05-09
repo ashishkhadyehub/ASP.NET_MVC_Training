@@ -1,4 +1,4 @@
-﻿@using EBS.UI.ViewModels
+﻿
 @model List<EventListViewModel>
 <div class="row my-5">
     @foreach (var eventvar in Model)
@@ -18,7 +18,7 @@
 
                 </ul>
                 <div class="card-body">
-                    <a class="btn btn-primary">View Details</a>
+                    <a asp-action="Details" asp-route-id="@eventvar.Id" class="btn btn-primary">View Details</a>
 
                 </div>
 

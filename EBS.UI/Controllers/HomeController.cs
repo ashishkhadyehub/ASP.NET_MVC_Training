@@ -9,10 +9,12 @@ namespace EBS.UI.Controllers
     public class HomeController : Controller
     {
        private readonly IEventRepo _eventRepo;
+       private readonly ITicketRepo _ticketRepo;
 
-        public HomeController(IEventRepo eventRepo)
+        public HomeController(IEventRepo eventRepo, ITicketRepo ticketRepo)
         {
             _eventRepo = eventRepo;
+            _ticketRepo = ticketRepo;
         }
 
         public IActionResult Index()
@@ -37,6 +39,40 @@ namespace EBS.UI.Controllers
             return View(vm);
         }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            var eventvar = await _eventRepo.GetById(id);
+            var vm = new EventDetailsViewModel
+            {
+                Id = eventvar.Id,
+                Name = eventvar.Name,
+                Description = eventvar.Description,
+                DateTime = eventvar.DateTime,
+                Planner = eventvar.Planner.Name,
+                PlannerImage = eventvar.Planner.ImageUrl,
+                Venue = eventvar.Venue.Name,
+                VenueAddress = eventvar.Venue.Address,
+                Image = eventvar.ImageUrl,
+
+            };
+            return View(vm);
+        }
+
+        public async Task<IActionResult> AvailableTickets(int id)
+        {
+            var eventvar = await _eventRepo.GetById(id);
+            var allSeats = Enumerable.Range(1, eventvar.Venue.Capacity).ToList();
+            var bookedTickets = await _ticketRepo.GetBookedTickets(eventvar.Id);
+
+            var availableSeats = allSeats.Except(bookedTickets).ToList();
+            var viewModel = new AvailableTicketsViewModel
+            {
+                EventId = eventvar.Id,
+                EventName = eventvar.Name,
+                AvailableSeats = availableSeats
+            };
+            return View(viewModel);
+        }
         public IActionResult Privacy()
         {
             return View();

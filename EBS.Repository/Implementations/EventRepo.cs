@@ -31,7 +31,7 @@ namespace EBS.Repository.Implementations
 
         public async Task<Event> GetById(int id)
         {
-            return await _context.Events.FindAsync(id);
+            return await _context.Events.Include(x => x.Venue).Include(y => y.Planner).FirstOrDefaultAsync(x=>x.Id==id);
         }
 
         public async Task RemoveData(Event varevent)
