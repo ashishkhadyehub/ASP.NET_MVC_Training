@@ -1,11 +1,13 @@
 ﻿using EBS.Entities;
 using EBS.Repository.Interfaces;
 using EBS.UI.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EBS.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EventController : Controller
     {
         private readonly IEventRepo _eventRepo;

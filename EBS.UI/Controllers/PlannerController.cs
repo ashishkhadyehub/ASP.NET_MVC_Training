@@ -1,10 +1,12 @@
 ﻿using EBS.Entities;
 using EBS.Repository.Interfaces;
 using EBS.UI.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EBS.UI.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class PlannerController : Controller
     {
         private readonly IPlannerRepo _plannerRepo;

@@ -98,6 +98,12 @@ namespace EBS.UI.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public string Name { get; set; }
+            public string Address { get; set; }
+            public string PIN { get; set; }
+            public string Contact { get; set; }
+
         }
 
 
@@ -114,6 +120,10 @@ namespace EBS.UI.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.Name = Input.Name;
+                user.Contact = Input.Contact;
+                user.Address = Input.Address;
+                user.PIN = Input.PIN;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
