@@ -1,4 +1,5 @@
-﻿using EBS.Repository.Interfaces;
+﻿using EBS.Entities;
+using EBS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,15 @@ namespace EBS.Repository.Implementations
                  .Select(t => t.SeatNumber).ToListAsync();
 
             return bookedTickets;
+        }
+
+        public async Task<IEnumerable<Booking>> GetBookings(string userId)
+        {
+            var bookings = await _context.Bookings.Where(x=>x.UserId==userId)
+                .Include(y=>y.Tickets)
+                .Include(z=>z.Event)
+                .ToListAsync();
+            return bookings;
         }
 
         //50

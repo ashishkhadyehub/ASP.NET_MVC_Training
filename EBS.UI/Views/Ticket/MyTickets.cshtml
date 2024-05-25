@@ -1,0 +1,41 @@
+﻿@using EBS.UI.ViewModels
+@model IEnumerable<BookingViewModel>
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-warning">
+        You have no Tickets..!
+    </div>
+}
+else
+{
+    foreach (var booking in Model)
+    {
+        <div class="card mb-4 mt-4" id="booking-@booking.BookingId">
+            <div class="card-header">
+                Booking Id: @booking.BookingId - Date:@booking.BookingDate.ToString("dd/MM/yyyy");
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Event: @booking.EventName</h5>
+                <ul class="list-group">
+                    @foreach (var ticket in booking.Tickets)
+                    {
+                        <li class="list-group-item">Seat Number: @ticket.SeatNumber </li>
+                    }
+                </ul>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" onclick="printTicket('@booking.BookingId')">Print Ticket</button>
+            </div>
+        </div>
+    }
+}
+@section scripts {
+    <script>
+        function printTicket(bookingId) {
+            var element = document.getElementById('booking-' + bookingId);
+            element.classList.add("print-section");
+            window.print();
+            element.classList.remove("print-section");
+        }
+    </script>
+}

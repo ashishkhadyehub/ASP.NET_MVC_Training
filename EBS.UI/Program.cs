@@ -23,6 +23,7 @@ builder.Services.AddScoped<IPlannerRepo,PlannerRepo>();
 builder.Services.AddScoped<IEventRepo, EventRepo>();
 builder.Services.AddScoped<IUtilityRepo, UtilityRepo>();
 builder.Services.AddScoped<ITicketRepo,TicketRepo>();
+builder.Services.AddScoped<IBookingRepo, BookingRepo>();
 builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
 
 builder.Services.AddScoped<IDbInitial, DbInitial>();

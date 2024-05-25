@@ -1,8 +1,11 @@
-﻿using EBS.Repository.Interfaces;
+﻿using EBS.Entities;
+using EBS.Repository.Interfaces;
 using EBS.UI.Models;
 using EBS.UI.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace EBS.UI.Controllers
 {
@@ -10,11 +13,13 @@ namespace EBS.UI.Controllers
     {
        private readonly IEventRepo _eventRepo;
        private readonly ITicketRepo _ticketRepo;
+        private readonly IBookingRepo _bookingRepo;
 
-        public HomeController(IEventRepo eventRepo, ITicketRepo ticketRepo)
+        public HomeController(IEventRepo eventRepo, ITicketRepo ticketRepo, IBookingRepo bookingRepo)
         {
             _eventRepo = eventRepo;
             _ticketRepo = ticketRepo;
+            _bookingRepo = bookingRepo;
         }
 
         public IActionResult Index()
@@ -58,6 +63,7 @@ namespace EBS.UI.Controllers
             return View(vm);
         }
 
+        [Authorize]
         public async Task<IActionResult> AvailableTickets(int id)
         {
             var eventvar = await _eventRepo.GetById(id);
@@ -73,6 +79,41 @@ namespace EBS.UI.Controllers
             };
             return View(viewModel);
         }
+
+
+        public async Task<IActionResult> BookTickets(int eventId, List<int> selectedSeats)
+        {
+            if(selectedSeats==null || selectedSeats.Count==0)
+            {
+                ModelState.AddModelError("", "No seats selected");
+                return RedirectToAction("AvailableTickets", new { id = eventId });
+            }
+            var claimIdentity=(ClaimsIdentity)User.Identity;
+            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
+
+            var newBooking = new Booking
+            {
+                EventId = eventId,
+                BookingDate = DateTime.Now,
+                UserId = userId,
+            };
+
+            foreach (var seatNo in selectedSeats)
+            {
+                newBooking.Tickets.Add(new Ticket
+                {
+                    SeatNumber=seatNo,
+                    IsBooked=true
+                });
+            }
+
+            await _bookingRepo.AddBooking(newBooking);
+            return RedirectToAction("Index");
+
+
+        }
+
         public IActionResult Privacy()
         {
             return View();

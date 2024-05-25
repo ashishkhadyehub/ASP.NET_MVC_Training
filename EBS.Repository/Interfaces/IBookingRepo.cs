@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace EBS.Repository.Interfaces
 {
-    public interface ITicketRepo
+    public interface IBookingRepo 
     {
-        Task<IEnumerable<int>> GetBookedTickets(int eventId);
-
-        Task<IEnumerable<Booking>> GetBookings(string userId);
+        Task AddBooking(Booking booking);
     }
 }
