@@ -1,4 +1,5 @@
 ﻿using EBS.Entities;
+using EBS.Repository.Implementations;
 using EBS.Repository.Interfaces;
 using EBS.UI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -14,13 +15,15 @@ namespace EBS.UI.Controllers
         private readonly IVenueRepo _venueRepo;
         private readonly IPlannerRepo _plannerRepo;
         private readonly IUtilityRepo _utilityRepo;
+        private readonly IBookingRepo _bookingRepo;
 
-        public EventController(IEventRepo eventRepo, IVenueRepo venueRepo, IPlannerRepo plannerRepo, IUtilityRepo utilityRepo)
+        public EventController(IEventRepo eventRepo, IVenueRepo venueRepo, IPlannerRepo plannerRepo, IUtilityRepo utilityRepo, IBookingRepo bookingRepo)
         {
             _eventRepo = eventRepo;
             _venueRepo = venueRepo;
             _plannerRepo = plannerRepo;
             _utilityRepo = utilityRepo;
+            _bookingRepo = bookingRepo;
         }
 
         public async Task<IActionResult> Index()
@@ -117,6 +120,21 @@ namespace EBS.UI.Controllers
             var eventvar = await _eventRepo.GetById(id);
             await _eventRepo.RemoveData(eventvar);
             return RedirectToAction("Index");
+        }
+
+        //1,2,3
+        [HttpGet]
+        public async Task<IActionResult> GetTickets(int id)
+        {
+            var bookings = await _bookingRepo.GetAll(id);
+            var vm = bookings.Select(b => new AdminTicketDataViewModel
+            {
+                UserName = b.User.UserName,
+                EventName = b.Event.Name,
+                SeatNumber = string.Join(",", b.Tickets.Select(t => t.SeatNumber))
+            }).ToList();
+
+            return View(vm);
         }
 
 

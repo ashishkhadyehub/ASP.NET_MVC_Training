@@ -10,5 +10,7 @@ namespace EBS.Repository.Interfaces
     public interface IBookingRepo 
     {
         Task AddBooking(Booking booking);
+
+        Task<IEnumerable<Booking>> GetAll(int id);
     }
 }

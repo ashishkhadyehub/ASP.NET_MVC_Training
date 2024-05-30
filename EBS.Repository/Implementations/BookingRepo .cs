@@ -1,5 +1,6 @@
 ﻿using EBS.Entities;
 using EBS.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,16 @@ namespace EBS.Repository.Implementations
         {
             await _context.Bookings.AddAsync(booking);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Booking>> GetAll(int id)
+        {
+            var bookings = await _context.Bookings.Include(b => b.Tickets)
+               .Include(c => c.Event)
+               .Include(u => u.User).Where(b => b.EventId == id)
+               .ToListAsync();
+
+            return bookings;
         }
     }
 }
